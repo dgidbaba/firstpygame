@@ -1,7 +1,7 @@
 [project]
-name = "firstpygame"
+name = "pythonbasicasteroidgame"
 version = "0.1.0"
-description = "Add your description here"
+description = "pythonbasicasteroidgame"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

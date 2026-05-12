@@ -10,6 +10,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
 
         self.rotation = 0 
+        self.last_shot_time = 0
 
     
     # in the Player class
@@ -36,6 +37,9 @@ class Player(CircleShape):
         if keys[pygame.K_SPACE]:
             self.shoot()
 
+        if self.last_shot_time > 0:
+            self.last_shot_time -= dt 
+
     def draw(self, screen): 
         pygame.draw.polygon(screen, "white", self.triangle(), LINE_WIDTH)
 
@@ -49,8 +53,12 @@ class Player(CircleShape):
         self.position += rotated_with_speed_vector
 
     def shoot(self):
-        self.shot = Shot(self.position.x, self.position.y, )
-        self.shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+        if self.last_shot_time > 0:
+            return
+        else:
+            self.last_shot_time = PLAYER_SHOOT_COOLDOWN_SECONDS
+            self.shot = Shot(self.position.x, self.position.y, )
+            self.shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
  
     
         
